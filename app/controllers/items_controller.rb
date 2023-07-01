@@ -3,9 +3,10 @@ class ItemsController < ApplicationController
   before_action :set_user
 
   def index
-    items = @user.items
-    render json: items
+    items = Item.all.includes(:user)
+    render json: items, include: :user
   end
+  
 
   def show
     item = @user.items.find_by(id: params[:id])
